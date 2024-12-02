@@ -1,0 +1,116 @@
+[gd_scene load_steps=2 format=3 uid="uid://chg7mwgbfsiib"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbku1"]
+bg_color = Color(0.270222, 0.270222, 0.270222, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Fon" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbku1")
+
+[node name="MainSpace" type="MarginContainer" parent="Fon"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Menu" type="HBoxContainer" parent="Fon/MainSpace"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="FileExplorer" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Btn_ShowFileExplorer" type="Button" parent="Fon/MainSpace/Menu/FileExplorer"]
+self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
+layout_mode = 2
+text = "Проаналлизировать папку"
+
+[node name="LE_FindFile" type="LineEdit" parent="Fon/MainSpace/Menu/FileExplorer"]
+self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
+layout_mode = 2
+placeholder_text = "Поиск"
+
+[node name="PnlCntr_FileManager" type="PanelContainer" parent="Fon/MainSpace/Menu/FileExplorer"]
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NoteRef" type="Label" parent="Fon/MainSpace/Menu/FileExplorer/PnlCntr_FileManager"]
+show_behind_parent = true
+layout_mode = 2
+text = "Файловый менеджер 
+выбранной папки 
+пользователем 
+и его древо файлов"
+horizontal_alignment = 1
+
+[node name="ListAllHashtags" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="ListBtnHashtag" type="HBoxContainer" parent="Fon/MainSpace/Menu/ListAllHashtags"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 10
+
+[node name="Btn_AddHastag" type="Button" parent="Fon/MainSpace/Menu/ListAllHashtags/ListBtnHashtag"]
+self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
+layout_mode = 2
+text = "Добавить в"
+
+[node name="Btn_DeleteHastag" type="Button" parent="Fon/MainSpace/Menu/ListAllHashtags/ListBtnHashtag"]
+self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
+layout_mode = 2
+text = "Удалить из"
+
+[node name="PnlCntr_ListBtnsHashtag" type="PanelContainer" parent="Fon/MainSpace/Menu/ListAllHashtags"]
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="NoteRef" type="Label" parent="Fon/MainSpace/Menu/ListAllHashtags/PnlCntr_ListBtnsHashtag"]
+show_behind_parent = true
+layout_mode = 2
+text = "Список всех хештегов 
+в виде кнопок выбранной 
+пользователем папки"
+horizontal_alignment = 1
+
+[node name="ListItemsNote" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+
+[node name="PnlCntr_ListItemNotes" type="PanelContainer" parent="Fon/MainSpace/Menu/ListItemsNote"]
+custom_minimum_size = Vector2(300, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="NoteRef" type="Label" parent="Fon/MainSpace/Menu/ListItemsNote/PnlCntr_ListItemNotes"]
+show_behind_parent = true
+layout_mode = 2
+text = "Список всех 
+заметок выбранной 
+пользователем папки"
+horizontal_alignment = 1

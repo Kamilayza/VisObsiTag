@@ -1,18 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://tubkm8lxn1er"]
+[gd_scene load_steps=3 format=3 uid="uid://c23gp18wtt8q7"]
 
-[ext_resource type="Script" path="res://SCENE/Main/main.gd" id="1_yci0e"]
+[ext_resource type="Script" path="res://SCENE/Test/test_text_redactor.gd" id="1_elm6j"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgvh6"]
 bg_color = Color(0.200056, 0.0550167, 0.425671, 1)
 
-[node name="Control" type="Control"]
+[node name="TestTextRedactor" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_yci0e")
+script = ExtResource("1_elm6j")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1

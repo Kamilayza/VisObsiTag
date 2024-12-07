@@ -12,12 +12,14 @@ config_version=5
 
 config/name="Visualizer Obsidian Hashtag"
 config/tags=PackedStringArray("app")
+run/main_scene="res://SCENE/MainMenu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://hashtag.png"
 
 [file_customization]
 
 folder_colors={
+"res://ASSET/": "green",
 "res://SCENE/": "red",
 "res://текстовики/": "gray"
 }

@@ -1,4 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://chg7mwgbfsiib"]
+[gd_scene load_steps=6 format=3 uid="uid://chg7mwgbfsiib"]
+
+[ext_resource type="Script" path="res://SCENE/MainMenu/root_main_menu.gd" id="1_spfw4"]
+[ext_resource type="Script" path="res://SCENE/MainMenu/btn_show_file_explorer.gd" id="2_yeyjm"]
+[ext_resource type="Script" path="res://SCENE/MainMenu/file_tree.gd" id="3_bmfrl"]
+[ext_resource type="PackedScene" uid="uid://byspxjvkdo46l" path="res://SCENE/FileDialogOpen/file_dialog_open.tscn" id="4_5n4ft"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbku1"]
 bg_color = Color(0.270222, 0.270222, 0.270222, 1)
@@ -10,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_spfw4")
 
 [node name="Fon" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -38,29 +44,21 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="Btn_ShowFileExplorer" type="Button" parent="Fon/MainSpace/Menu/FileExplorer"]
+[node name="Btn_OpneFolder" type="Button" parent="Fon/MainSpace/Menu/FileExplorer"]
 self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
 layout_mode = 2
-text = "Проаналлизировать папку"
+text = "Выбрать папку"
+script = ExtResource("2_yeyjm")
 
 [node name="LE_FindFile" type="LineEdit" parent="Fon/MainSpace/Menu/FileExplorer"]
 self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
 layout_mode = 2
 placeholder_text = "Поиск"
 
-[node name="PnlCntr_FileManager" type="PanelContainer" parent="Fon/MainSpace/Menu/FileExplorer"]
+[node name="FileTree" type="Tree" parent="Fon/MainSpace/Menu/FileExplorer"]
 custom_minimum_size = Vector2(300, 450)
 layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="NoteRef" type="Label" parent="Fon/MainSpace/Menu/FileExplorer/PnlCntr_FileManager"]
-show_behind_parent = true
-layout_mode = 2
-text = "Файловый менеджер 
-выбранной папки 
-пользователем 
-и его древо файлов"
-horizontal_alignment = 1
+script = ExtResource("3_bmfrl")
 
 [node name="ListAllHashtags" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
 layout_mode = 2
@@ -114,3 +112,6 @@ text = "Список всех
 заметок выбранной 
 пользователем папки"
 horizontal_alignment = 1
+
+[node name="FileDialogOpenFolder" parent="." instance=ExtResource("4_5n4ft")]
+ok_button_text = "Select Current Folder"

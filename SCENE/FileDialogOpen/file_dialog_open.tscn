@@ -3,10 +3,11 @@
 [ext_resource type="Script" path="res://SCENE/FileDialogOpen/file_dialog_open.gd" id="1_h6oee"]
 
 [node name="FileDialogOpenFolder" type="FileDialog"]
-title = "Open a Directory"
+title = "Выбор папки"
 initial_position = 1
 size = Vector2i(452, 352)
-ok_button_text = "Открыть папку"
+ok_button_text = "Выбери папку"
+dialog_hide_on_ok = true
 cancel_button_text = "Отмена"
 file_mode = 2
 access = 2

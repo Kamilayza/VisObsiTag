@@ -1,12 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://chg7mwgbfsiib"]
+[gd_scene load_steps=13 format=3 uid="uid://chg7mwgbfsiib"]
 
 [ext_resource type="Script" path="res://SCENE/MainMenu/root_main_menu.gd" id="1_spfw4"]
+[ext_resource type="Texture2D" uid="uid://bwm0u5vs254uf" path="res://ASSET/Icons/FileExplorer/FolderOpenLine.svg" id="2_kseou"]
 [ext_resource type="Script" path="res://SCENE/MainMenu/btn_show_file_explorer.gd" id="2_yeyjm"]
 [ext_resource type="Script" path="res://SCENE/MainMenu/file_tree.gd" id="3_bmfrl"]
+[ext_resource type="Texture2D" uid="uid://b6gcoefkq48eg" path="res://ASSET/Icons/FileExplorer/Search.svg" id="3_vgdty"]
 [ext_resource type="PackedScene" uid="uid://byspxjvkdo46l" path="res://SCENE/FileDialogOpen/file_dialog_open.tscn" id="4_5n4ft"]
+[ext_resource type="Script" path="res://SCENE/MainMenu/btn_find_element.gd" id="4_6w2qb"]
+[ext_resource type="Texture2D" uid="uid://d0t3xe4a7njhe" path="res://ASSET/Icons/FileExplorer/FolderOff.svg" id="4_s8uyu"]
+[ext_resource type="Script" path="res://SCENE/MainMenu/btn_clean_data_tree.gd" id="5_pfv74"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbku1"]
 bg_color = Color(0.270222, 0.270222, 0.270222, 1)
+
+[sub_resource type="GDScript" id="GDScript_5u1w5"]
+script/source = "extends LineEdit
+
+# --- Методы ---
+
+# Этот скрипт просто обновляет текст поиска
+func _ready():
+	# Делаем строку поиска неактивной по умолчанию
+	self.editable = false
+	# Подключаем сигнал для обработки нажатия Enter
+	self.text_submitted.connect(_on_text_submitted)
+
+# Включаем строку поиска, когда папка выбрана
+func enable_search():
+	self.editable = true  # Делаем строку редактируемой
+
+# Обработчик нажатия клавиши Enter
+func _on_text_submitted(new_text: String):
+	var search_text = new_text.strip_edges().to_lower()
+	emit_signal(\"search_submitted\", search_text)  # Отправляем сигнал с текстом поиска
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p7tdl"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -42,23 +71,78 @@ alignment = 1
 
 [node name="FileExplorer" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/separation = 6
 
-[node name="Btn_OpneFolder" type="Button" parent="Fon/MainSpace/Menu/FileExplorer"]
+[node name="Btn_ActionsTree" type="HBoxContainer" parent="Fon/MainSpace/Menu/FileExplorer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Btn_OpenFolder" type="Button" parent="Fon/MainSpace/Menu/FileExplorer/Btn_ActionsTree"]
 self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
 layout_mode = 2
-text = "Выбрать папку"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "  Выбрать   "
+icon = ExtResource("2_kseou")
 script = ExtResource("2_yeyjm")
 
-[node name="LE_FindFile" type="LineEdit" parent="Fon/MainSpace/Menu/FileExplorer"]
+[node name="Btn_CleanDataTree" type="Button" parent="Fon/MainSpace/Menu/FileExplorer/Btn_ActionsTree"]
 self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
 layout_mode = 2
-placeholder_text = "Поиск"
+text = "  Убрать  "
+icon = ExtResource("4_s8uyu")
+script = ExtResource("5_pfv74")
 
-[node name="FileTree" type="Tree" parent="Fon/MainSpace/Menu/FileExplorer"]
+[node name="HBC_FindElement" type="HBoxContainer" parent="Fon/MainSpace/Menu/FileExplorer"]
+layout_mode = 2
+alignment = 2
+
+[node name="LE_FindElement" type="LineEdit" parent="Fon/MainSpace/Menu/FileExplorer/HBC_FindElement"]
+unique_name_in_owner = true
+self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+placeholder_text = "Поиск"
+script = SubResource("GDScript_5u1w5")
+
+[node name="Btn_FindElement" type="Button" parent="Fon/MainSpace/Menu/FileExplorer/HBC_FindElement"]
+self_modulate = Color(0.996078, 0.745098, 0.231373, 1)
+layout_mode = 2
+icon = ExtResource("3_vgdty")
+script = ExtResource("4_6w2qb")
+
+[node name="SpaceFT" type="PanelContainer" parent="Fon/MainSpace/Menu/FileExplorer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_p7tdl")
+
+[node name="FileTree" type="Tree" parent="Fon/MainSpace/Menu/FileExplorer/SpaceFT"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 450)
 layout_mode = 2
 script = ExtResource("3_bmfrl")
+
+[node name="Lb_NoMatches" type="Label" parent="Fon/MainSpace/Menu/FileExplorer/SpaceFT"]
+visible = false
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Совпадений 
+не найдено"
+horizontal_alignment = 1
+
+[node name="Lb_NoTreeData" type="Label" parent="Fon/MainSpace/Menu/FileExplorer/SpaceFT"]
+visible = false
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "Древо папок
+очищено"
+horizontal_alignment = 1
 
 [node name="ListAllHashtags" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
 layout_mode = 2
@@ -114,4 +198,7 @@ text = "Список всех
 horizontal_alignment = 1
 
 [node name="FileDialogOpenFolder" parent="." instance=ExtResource("4_5n4ft")]
+title = "Open a Directory"
 ok_button_text = "Select Current Folder"
+
+[node name="Timer" type="Timer" parent="."]

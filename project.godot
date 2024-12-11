@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Visualizer Obsidian Hashtag"
-config/tags=PackedStringArray("app")
+config/tags=PackedStringArray("app", "my_app")
 run/main_scene="res://SCENE/MainMenu/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://hashtag.png"
@@ -22,6 +22,13 @@ folder_colors={
 "res://ASSET/": "green",
 "res://SCENE/": "red",
 "res://текстовики/": "gray"
+}
+
+[input]
+
+Input={
+"deadzone": 0.5,
+"events": []
 }
 
 [rendering]

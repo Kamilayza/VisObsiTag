@@ -8,7 +8,7 @@ extends Tree
 
 # --- --- Иконки --- ---
 var icon_folder_close = load("res://ASSET/Icons/FileExplorer/FolderClose.svg")
-var icon_folder_open = load("res://ASSET/Icons/FileExplorer/FolderOpen.svg")
+var icon_folder_open = load("res://ASSET/Icons/FileExplorer/FolderOpenFilled.svg")
 var icon_folder_obsidian = load("res://ASSET/Icons/FileExplorer/Obsidian.svg")
 var icon_file_img = load("res://ASSET/Icons/FileExplorer/FileImageFilled.svg")
 var icon_file_txt = load("res://ASSET/Icons/FileExplorer/FileTextFilled.svg")

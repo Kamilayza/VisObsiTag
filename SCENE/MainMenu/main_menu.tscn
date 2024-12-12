@@ -59,14 +59,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_tbku1")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="Menu" type="HBoxContainer" parent="Fon/MainSpace"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="FileExplorer" type="VBoxContainer" parent="Fon/MainSpace/Menu"]
@@ -120,7 +120,7 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_p7tdl")
 
 [node name="FileTree" type="Tree" parent="Fon/MainSpace/Menu/FileExplorer/SpaceFT"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 450)
+custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
 script = ExtResource("3_bmfrl")
 
@@ -165,13 +165,14 @@ layout_mode = 2
 text = "Удалить из"
 
 [node name="PnlCntr_ListBtnsHashtag" type="PanelContainer" parent="Fon/MainSpace/Menu/ListAllHashtags"]
-custom_minimum_size = Vector2(300, 450)
+custom_minimum_size = Vector2(300, 500)
 layout_mode = 2
 size_flags_vertical = 8
 
 [node name="NoteRef" type="Label" parent="Fon/MainSpace/Menu/ListAllHashtags/PnlCntr_ListBtnsHashtag"]
 show_behind_parent = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "Список всех хештегов 
 в виде кнопок выбранной 
 пользователем папки"
@@ -184,7 +185,7 @@ size_flags_horizontal = 6
 size_flags_vertical = 8
 
 [node name="PnlCntr_ListItemNotes" type="PanelContainer" parent="Fon/MainSpace/Menu/ListItemsNote"]
-custom_minimum_size = Vector2(300, 450)
+custom_minimum_size = Vector2(450, 500)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -192,9 +193,10 @@ size_flags_vertical = 4
 [node name="NoteRef" type="Label" parent="Fon/MainSpace/Menu/ListItemsNote/PnlCntr_ListItemNotes"]
 show_behind_parent = true
 layout_mode = 2
-text = "Список всех 
-заметок выбранной 
-пользователем папки"
+size_flags_horizontal = 4
+text = "Текст выбранный 
+пользователем заметки 
+из FileTree"
 horizontal_alignment = 1
 
 [node name="FileDialogOpenFolder" parent="." instance=ExtResource("4_5n4ft")]

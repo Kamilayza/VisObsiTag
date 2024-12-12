@@ -1,10 +1,10 @@
 extends Tree
 
-# --- Переменнные ---
+
+# --- Переменные ---
 
 # --- --- Ноды --- ---
 @onready var lb_no_matches = $"../Lb_NoMatches"
-
 
 # --- --- Иконки --- ---
 var icon_folder_close = load("res://ASSET/Icons/FileExplorer/FolderClose.svg")
@@ -50,12 +50,10 @@ func _populate_tree_recursive(parent_item: TreeItem, folder_path: String):
 			if subfolder == ".obsidian":
 				folder_item.set_icon(0, icon_folder_obsidian)
 			else:
-				# Устанавливаем стандартную иконку для закрытой папки
 				folder_item.set_icon(0, icon_folder_close)
 				
 			folder_item.collapsed = true  # Сворачиваем папку по умолчанию
 			
-			# Рекурсивно добавляем вложенные папки
 			_populate_tree_recursive(folder_item, subfolder_path)
 		
 		# Добавляем файлы
@@ -89,6 +87,12 @@ func filter_tree(search_text: String):
 	if search_text.is_empty():
 		_reset_visibility(get_root())
 		no_matches_found = false
+		
+		# Сворачиваем все папки под корневым элементом
+		var root = get_root()
+		if root:
+			for child in root.get_children():
+				_collapse_folders(child)
 	else:
 		var root = get_root()
 		
@@ -110,30 +114,23 @@ func _filter_folders(item: TreeItem, search_text: String, path_to_item: Array) -
 	var item_name = item.get_text(0).to_lower()
 	var is_folder = item.get_icon(0) == icon_folder_close or item.get_icon(0) == icon_folder_obsidian
 	
-	# Добавляем текущий элемент в путь
 	path_to_item.append(item)
 	
-	# Проверка на совпадение с папкой
 	var matches = item_name == search_text or item_name.find(search_text) != -1
 	if matches:
-		_reveal_path(path_to_item)  # Раскрываем путь к элементу
-		_show_item_and_children(item)  # Показываем папку и её содержимое
-		
-		# Если папка совпала, оставляем её скрытой (если нет вложений, проходящих фильтрацию)
-		item.collapsed = true  # Не раскрывать совпавшую папку
+		_reveal_path(path_to_item)
+		_show_item_and_children(item)
+		item.collapsed = true
 		return true
 		
-	# Если папка не совпала с запросом, проверяем её дочерние элементы
 	var has_visible_child = false
 	for child in item.get_children():
-		# Важно: проверяем как папки, так и файлы
 		if _filter_folders(child, search_text, path_to_item.duplicate()) or _filter_files(child, search_text, path_to_item.duplicate()):
 			has_visible_child = true
 			
-	# Устанавливаем видимость папки, если она или её дочерние элементы видимы
 	item.visible = matches or has_visible_child
 	if matches:
-		_reveal_path(path_to_item)  # Раскрываем путь к элементу
+		_reveal_path(path_to_item)
 		
 	return item.visible
 
@@ -143,20 +140,19 @@ func _filter_files(item: TreeItem, search_text: String, path_to_item: Array) -> 
 	var item_name = item.get_text(0).to_lower()
 	var is_folder = item.get_icon(0) == icon_folder_close or item.get_icon(0) == icon_folder_obsidian
 	
-	# Проверка на совпадение с файлом
 	if !is_folder:
 		var matches = item_name == search_text or item_name.find(search_text) != -1
 		if matches:
-			_reveal_path(path_to_item)  # Раскрываем путь к элементу
-			_show_item_and_children(item)  # Показываем файл
+			_reveal_path(path_to_item)
+			_show_item_and_children(item)
 		return matches
-	return false  # Если это папка, пропускаем этот метод
+	return false
 
 
 # Метод для раскрытия всех папок на пути к элементу
 func _reveal_path(path_to_item: Array):
 	for node in path_to_item:
-		node.collapsed = false  # Раскрываем папку
+		node.collapsed = false
 
 
 # Метод для показа папки и всех её дочерних элементов
@@ -171,3 +167,11 @@ func _reset_visibility(item: TreeItem):
 	item.visible = true
 	for child in item.get_children():
 		_reset_visibility(child)
+
+
+# Рекурсивный метод для сворачивания всех папок
+func _collapse_folders(item: TreeItem):
+	if item.get_icon(0) == icon_folder_close or item.get_icon(0) == icon_folder_obsidian:
+		item.collapsed = true
+	for child in item.get_children():
+		_collapse_folders(child)
